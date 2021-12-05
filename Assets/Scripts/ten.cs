@@ -16,13 +16,25 @@ public class ten : MonoBehaviour
 
     public GameObject sampleObj;
 
+    public bool animating;
+
     void Start()
     {
         StartCoroutine(Brrr());
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Space) && !animating)
+        {
+            StartCoroutine(DoingAnimation());
+            UnityEngine.Debug.Log("manual update");
+        }
+    }
+
     IEnumerator Brrr()
     {
+        animating = true;
         Stopwatch st = new Stopwatch();
         st.Start();
 
@@ -59,18 +71,32 @@ public class ten : MonoBehaviour
 
         st.Stop();
         // first run A https://gyazo.com/a5aafd3ae4ee83e997611038ab9a7397
+        // 100086 updates for https://gyazo.com/161c112e61ef9ed353760a1cba6ac966 OH SHIT THIS WAS PART TWO!!
         UnityEngine.Debug.Log(string.Format("took {0} ms to complete", st.ElapsedMilliseconds));
         yield return new WaitForEndOfFrame();
 
         // visualize data x amount of times with waiting times for answer since this will use wait for seconds it is outside of stopwatch
-        for (int i = 0; i < 200; i++)
+        for (int i = 0; i < 10086; i++)
         {
             for (int j = 0; j < objects.Count; j++)
             {
                 positions[j] += velocities[j];
                 objects[j].transform.position = positions[j];
             }
-            yield return new WaitForSeconds(1);
+            yield return new WaitForEndOfFrame();
         }
+        animating = false;
+    }
+
+    IEnumerator DoingAnimation()
+    {
+        animating = true;
+        for (int j = 0; j < objects.Count; j++)
+        {
+            positions[j] += velocities[j];
+            objects[j].transform.position = positions[j];
+        }
+        yield return new WaitForEndOfFrame();
+        animating = false;
     }
 }
