@@ -14,11 +14,6 @@ public class second : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(Brrr());
-    }
-
-    IEnumerator Brrr()
-    {
         Stopwatch st = new Stopwatch();
         st.Start();
 
@@ -38,7 +33,6 @@ public class second : MonoBehaviour
         // first run B https://gyazo.com/117d4d130fe5afdb008a1716aadf8243
         UnityEngine.Debug.Log("Answer: " + answer);
         UnityEngine.Debug.Log(string.Format("took {0} ms to complete", st.ElapsedMilliseconds));
-        yield return new WaitForEndOfFrame();
     }
 
     int PartA()
@@ -89,6 +83,7 @@ public class second : MonoBehaviour
                 for (int i = 0; i < entries[i].Length; i++)
                 {
                     if (entries[a][i].ToString() == entries[b][i].ToString()) matchCount++;
+                    // TODO can optimize by continuing if we already know that its impossible to improve matchcount
                 }
 
                 if (matchCount > amountMatchingCharacters)

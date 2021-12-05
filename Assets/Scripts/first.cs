@@ -999,20 +999,6 @@ public class first : MonoBehaviour
     private void Start()
     {
         //StartCoroutine(GetDataFromWebpage());
-        StartCoroutine(Calculator());
-    }
-
-    public string content;
-    IEnumerator GetDataFromWebpage()
-    {
-        WWW webpage = new WWW("https://adventofcode.com/2018/day/1/input");
-        while (!webpage.isDone) yield return false;
-        content = webpage.text;
-        // returns that input differs per user so cant read from website 
-    }
-
-    IEnumerator Calculator()
-    {
         Stopwatch st = new Stopwatch();
         st.Start();
 
@@ -1046,7 +1032,15 @@ public class first : MonoBehaviour
         // first run B: https://gyazo.com/cbb519236a0073455bf11899195db16e
         UnityEngine.Debug.Log(string.Format("took {0} ms to complete", st.ElapsedMilliseconds));
         UnityEngine.Debug.Log("Answer: " + outputValue);
-        yield return new WaitForEndOfFrame();
+    }
+
+    public string content;
+    IEnumerator GetDataFromWebpage()
+    {
+        WWW webpage = new WWW("https://adventofcode.com/2018/day/1/input");
+        while (!webpage.isDone) yield return false;
+        content = webpage.text;
+        // returns that input differs per user so cant read from website 
     }
 
     void UpdateList(int value)

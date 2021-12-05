@@ -14,6 +14,9 @@ public class fourth : MonoBehaviour
 
     void Start()
     {
+        Stopwatch st = new Stopwatch();
+        st.Start();
+
         FileStream fs = new FileStream(Application.dataPath + "/scripts/fourinput.txt", FileMode.Open);
         string content = "";
         using (StreamReader read = new StreamReader(fs, true))
@@ -22,14 +25,6 @@ public class fourth : MonoBehaviour
         }
         entries = Regex.Split(content, "\r\n?|\n", RegexOptions.Singleline);
         Array.Sort(entries);
-
-        StartCoroutine(Brrr());
-    }
-
-    IEnumerator Brrr ()
-    {
-        Stopwatch st = new Stopwatch();
-        st.Start();
 
         int dictKey = 0;
         for (int i = 0; i < entries.Length; i++)
@@ -85,7 +80,6 @@ public class fourth : MonoBehaviour
 
         // first run https://gyazo.com/453a22a009f613acdc92f2c95a27d13c
         UnityEngine.Debug.Log(string.Format("took {0} ms to complete", st.ElapsedMilliseconds));
-        yield return new WaitForEndOfFrame();
     }
 
     public int SumSleep(List<int> toBeSummed)
