@@ -10,8 +10,6 @@ public class second : MonoBehaviour
 {
     public string[] entries;
 
-    List<Node> nodes = new List<Node>();
-
     void Start()
     {
         Stopwatch st = new Stopwatch();
