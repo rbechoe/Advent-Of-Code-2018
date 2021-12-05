@@ -71,7 +71,7 @@ public class ten : MonoBehaviour
 
         st.Stop();
         // first run A https://gyazo.com/a5aafd3ae4ee83e997611038ab9a7397
-        // 100086 updates for https://gyazo.com/161c112e61ef9ed353760a1cba6ac966 OH SHIT THIS WAS PART TWO!!
+        // 10086 updates for https://gyazo.com/161c112e61ef9ed353760a1cba6ac966 OH SHIT THIS WAS PART TWO!!
         UnityEngine.Debug.Log(string.Format("took {0} ms to complete", st.ElapsedMilliseconds));
         yield return new WaitForEndOfFrame();
 
