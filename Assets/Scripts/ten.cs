@@ -41,8 +41,6 @@ public class ten : MonoBehaviour
             // position=< 7,  6> velocity=<-1, -1>
             Match xMatches = Regex.Match(entries[i], "<.*?,");
             Match yMatches = Regex.Match(entries[i], ",.*?>");
-            UnityEngine.Debug.Log(entries[i]);
-            UnityEngine.Debug.Log(xMatches.NextMatch());
             int xpos = int.Parse(xMatches.ToString().Replace("<", "").Replace(",", ""));
             int xspeed = int.Parse(xMatches.NextMatch().ToString().Replace("<", "").Replace(",", "")); // left is negative, right is positive
 
@@ -60,12 +58,12 @@ public class ten : MonoBehaviour
         }
 
         st.Stop();
-        // first run A
+        // first run A https://gyazo.com/a5aafd3ae4ee83e997611038ab9a7397
         UnityEngine.Debug.Log(string.Format("took {0} ms to complete", st.ElapsedMilliseconds));
         yield return new WaitForEndOfFrame();
 
         // visualize data x amount of times with waiting times for answer since this will use wait for seconds it is outside of stopwatch
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 200; i++)
         {
             for (int j = 0; j < objects.Count; j++)
             {
