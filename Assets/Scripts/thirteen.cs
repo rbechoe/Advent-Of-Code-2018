@@ -220,7 +220,8 @@ public class thirteen : MonoBehaviour
         }
 
         st.Stop();
-        // first run 
+        // first run A https://gyazo.com/c85901e81e6e1c61d76f0589f8f26e20
+        // right answer with example, wrong answer with actual input
         UnityEngine.Debug.Log(string.Format("took {0} ms to complete", st.ElapsedMilliseconds));
         yield return new WaitForEndOfFrame();
     }
