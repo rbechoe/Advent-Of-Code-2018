@@ -68,17 +68,20 @@ public class fourth : MonoBehaviour
             }
             //UnityEngine.Debug.Log("Guard " + guard + " slept for a total of " + sleepTime + " minutes");
         }
-        UnityEngine.Debug.Log("Guard " + id + " slept the most with " + highestSleep + " minutes");
+        // Part A
+        //UnityEngine.Debug.Log("Guard " + id + " slept the most with " + highestSleep + " minutes");
+        //int chosenMinute = MostSleep(guardNaps[id]);
+        //UnityEngine.Debug.Log("Chosen minute: " + chosenMinute);
+        //int answer = chosenMinute * id;
+        //UnityEngine.Debug.Log("Answer: " + answer);
 
-        int chosenMinute = MostSleep(guardNaps[id]);
-        UnityEngine.Debug.Log("Chosen minute: " + chosenMinute);
-
-        int answer = chosenMinute * id;
-        UnityEngine.Debug.Log("Answer: " + answer);
+        // Part B
+        SleepiestMinute();
 
         st.Stop();
 
-        // first run https://gyazo.com/453a22a009f613acdc92f2c95a27d13c
+        // first run A https://gyazo.com/360de8090581d08dbf9fceefac0a1c67
+        // first run B https://gyazo.com/0e601ff0e739abca335d580b3b0a1f82
         UnityEngine.Debug.Log(string.Format("took {0} ms to complete", st.ElapsedMilliseconds));
     }
 
@@ -87,12 +90,45 @@ public class fourth : MonoBehaviour
         int sum = 0;
         foreach (int item in toBeSummed)
         {
-            sum += item;
+            sum++;
         }
         return sum;
     }
 
-    // used for debugging but still somehow gets wrong answer :(
+    public int[] minutes;
+    public void SleepiestMinute()
+    {
+        int sleepyGuardId = 0;
+        int sleepyMinute = 0;
+        int sleepTimes = 0;
+        foreach (int guard in guardNaps.Keys)
+        {
+            // minute used
+            for (int i = 0; i < guardNaps[guard].Count; i++)
+            {
+                // check for matches with minute compared to other minutes and increase amount
+                int amount = 0;
+
+                // minutes to check
+                for (int j = 0; j < guardNaps[guard].Count; j++)
+                {
+                    if (i == j) continue;
+
+                    if (guardNaps[guard][i] == guardNaps[guard][j]) amount++;
+                }
+                
+                // update cache after comparing minutes
+                if (amount > sleepTimes)
+                {
+                    sleepyGuardId = guard;
+                    sleepTimes = amount;
+                    sleepyMinute = guardNaps[guard][i];
+                }
+            }
+        }
+        UnityEngine.Debug.Log("Answer: " + sleepyGuardId * sleepyMinute);
+    }
+    
     public int[] minute;
     public int[] amount;
     public int MostSleep(List<int> sleeps)
