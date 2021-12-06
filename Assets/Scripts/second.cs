@@ -28,7 +28,7 @@ public class second : MonoBehaviour
 
         st.Stop();
         // first run A https://gyazo.com/b6b7a58476058368c2052ad4b3aeb27e
-        // first run B https://gyazo.com/117d4d130fe5afdb008a1716aadf8243
+        // first run B https://gyazo.com/25743ea8586b19d25ae6ce00b375e05a
         UnityEngine.Debug.Log("Answer: " + answer);
         UnityEngine.Debug.Log(string.Format("took {0} ms to complete", st.ElapsedMilliseconds));
     }
@@ -96,12 +96,12 @@ public class second : MonoBehaviour
             }
         }
 
-        // return the non matching characters
+        // return the matching characters
         for (int i = 0; i < compareA.Length; i++)
         {
-            if (compareA[i] != compareB[i])
+            if (compareA[i] == compareB[i])
             {
-                answer = answer + compareA[i] + compareB[i];
+                answer = answer + compareA[i];
             }
         }
 
