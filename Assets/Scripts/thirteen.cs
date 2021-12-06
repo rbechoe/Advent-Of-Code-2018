@@ -9,6 +9,7 @@ using UnityEngine;
 public class thirteen : MonoBehaviour
 {
     public string[] entries;
+    bool collided;
     Dictionary<string, int> typeCollection = new Dictionary<string, int>();
 
     Dictionary<string, int> map = new Dictionary<string, int>();
@@ -53,8 +54,6 @@ public class thirteen : MonoBehaviour
 
         // fill map
         int count = 0;
-        UnityEngine.Debug.Log(entries.Length);
-        UnityEngine.Debug.Log(entries[0].Length);
         for (int y = 0; y < entries.Length; y++)
         {
             for (int x = 0; x < entries[y].Length; x++)
@@ -83,13 +82,11 @@ public class thirteen : MonoBehaviour
         strings = map.Keys.ToArray();
 
         // update all minecarts
-        for (int i = 0; i < 100; i++)
+        while(!collided)
         {
             foreach (Minecart cart in carts)
             {
                 // if cart is on special track update direction
-                UnityEngine.Debug.Log(cart.position + " -- " + cart.direction);
-                // TODO somehow bugs off the track
                 int trackPiece = map[cart.position.x + " - " + cart.position.y];
                 if (trackPiece != 4 && trackPiece != 7)
                 {
@@ -121,11 +118,11 @@ public class thirteen : MonoBehaviour
                         cart.direction = 1;
                     }
                     // cart was moving to the down
-                    else if (cart.direction == 2 && trackPiece == 5)
+                    else if (cart.direction == 3 && trackPiece == 5)
                     {
                         cart.direction = 1;
                     }
-                    else if (cart.direction == 2 && trackPiece == 6)
+                    else if (cart.direction == 3 && trackPiece == 6)
                     {
                         cart.direction = 0;
                     }
@@ -217,6 +214,7 @@ public class thirteen : MonoBehaviour
                 else
                 {
                     UnityEngine.Debug.Log("Collision at: " + cart.position);
+                    collided = true;
                 }
             }
         }
