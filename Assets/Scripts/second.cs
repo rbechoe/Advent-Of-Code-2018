@@ -23,12 +23,14 @@ public class second : MonoBehaviour
         }
         entries = Regex.Split(content, "\r\n?|\n", RegexOptions.Singleline);
 
-        //int answer = PartA(); // gives good answer
-        string answer = PartB(); // gives wrong answer with input, but good answer with example
+        //int answer = PartA();
+        string answer = PartB();
 
         st.Stop();
         // first run A https://gyazo.com/b6b7a58476058368c2052ad4b3aeb27e
         // first run B https://gyazo.com/25743ea8586b19d25ae6ce00b375e05a
+        // 2nd run B https://gyazo.com/aaae627bd0ab1730c826724b35be28c1
+        // 3rd run B https://gyazo.com/cd9e289ca329be28b8963692497efced
         UnityEngine.Debug.Log("Answer: " + answer);
         UnityEngine.Debug.Log(string.Format("took {0} ms to complete", st.ElapsedMilliseconds));
     }
@@ -68,7 +70,6 @@ public class second : MonoBehaviour
         string answer = "";
         string compareA = "";
         string compareB = "";
-        int amountMatchingCharacters = 0;
 
         for (int a = 0; a < entries.Length; a++)
         {
@@ -76,22 +77,30 @@ public class second : MonoBehaviour
             for (int b = 0; b < entries.Length; b++)
             {
                 if (a == b) continue;
-                int matchCount = 0;
+                int missCount = 0;
+                bool dnf = true; // did not finish
 
                 for (int i = 0; i < entries[i].Length; i++)
                 {
-                    if (entries[a][i].ToString() == entries[b][i].ToString()) matchCount++;
-                    // TODO can optimize by continuing if we already know that its impossible to improve matchcount
+                    dnf = true;
+
+                    if (entries[a][i].ToString() != entries[b][i].ToString())
+                    {
+                        missCount++;
+                    }
+
+                    if (missCount > 1)
+                    {
+                        break;
+                    }
+
+                    dnf = false;
                 }
 
-                if (matchCount > amountMatchingCharacters)
+                if (!dnf)
                 {
-                    amountMatchingCharacters = matchCount;
                     compareA = entries[a];
                     compareB = entries[b];
-                    UnityEngine.Debug.Log("A: " + compareA);
-                    UnityEngine.Debug.Log("B: " + compareB);
-                    UnityEngine.Debug.Log("Times: " + amountMatchingCharacters);
                 }
             }
         }
